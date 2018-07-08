@@ -7,15 +7,21 @@ Similar to what DisableAssassins script does, it removes any creatures spawned b
 ## Boots of Actually Blinding Speed (BOABS) (v1.0)
 A harmless script that ensures the boots actually blind player, no matter what magicka resist they have (although it is still possible to bypass this if you have access to console).
 
+## Criminals (v1.0)
+A script that enhances the bounty system in TES3MP by adding messages to the chat when players are wanted, prefixes to criminals' messages and award bounty to those that kill the criminals.
+
 ## CustomQuests (v0.9.3)
 A somewhat experimental version. The script allows you to create custom quests that require players to either hunt specific creatures, travel to a specific cell or acquire specific items. The quests are easy to implement through few lines in a text file - see README.txt and customQuestsMain.txt for explanations of values and examples. The script is written poorly, with no comments, poor optimization and possible game-breaking bugs. See README.txt for known issues. USE THIS AT YOUR OWN RISK.
 
 ## RPRolls (v1.1)
 Easy-to-setup script that adds a chat command to roll a random number between <skill/attirbute> and 100. The result is displayed locally. The script was made with roleplaying in mind, where people could roll for checks when resolving conflicts.
+
+## RecursiveCliffRacers (v1.0)
+A TES3MP-implementation of the Recursive Cliff Racers mod, which spawns more cliff racers when one dies.
   
-## RavenRock (v1.0)
+## StartupScripts (v1.0)
 ### REQUIRES STATESPAM FIX!
-An attempt to provide a temporary fix for Raven Rock in Bloodmoon expansion. Using fancy algorithms of simply reading your journal and finding the right journal entries, the colony's progress is properly set through the global values in TES3. After logging in, your client forcibly sends console commands (even if you don't have access to the console!) to set these values to what your colony should look like. As such, you should retain your colony progress after relogging. Note that this is not meant to be a full fix for the questline - many quests can and will break if you relog in the middle of them and the colony progress might behave weird, especially with desynced journal. This has been tested by me only, so there's a good chance things might break at some point any way.
+Previously known as "RavenRock", script provides a means to load several variables affecting the states of objects, such as Raven Rock colony in Solstheim, Great House strongholds and disabling various entities that should be disabled at the start of the game. The script may be expanded in the future to include even more fixes for various quests (especially the ones in Tribunal and Bloodmoon expansion) by reading journal entries and changing appropariate TES3 variables through console.
 
 ## StateSpam (v1.0)
 [Thanks to Malseph](https://github.com/Malseph/Mal-s-Public-Server-Scripts-for-Tes3MP/blob/master/Console%20state%20spam%20prevention.lua), StateSpam is mostly meant to help tackle the issues with Raven Rock, especially when two players with different states of the colony are have the cell loaded.
