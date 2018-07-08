@@ -3,7 +3,7 @@
 
 **REQUIRES STATESPAM FIX SCRIPT OR ELSE THINGS WILL GET UGLY**
 
-[StateSpam fix can be found here](https://github.com/SkotisVarvikas/TES3MP-Stuffs/tree/master/StateSpam/)
+[StateSpam fix can be found here](https://github.com/Skvysh/TES3MP-Scripts/tree/master/StateSpam)
 
 ## ABOUT THE SCRIPT
 
@@ -41,10 +41,13 @@ Startup script, which disables a bunch of entities in 60 cells, will not execute
 
 ## LIST OF FIXES
 
-• RavenRock in Solstheim island, including choice of person you side with, service and few less significant statuses, will be loaded properly.
-• Strongholds built through Great House questlines will persist.
-• A fix for auto-goodbye when talking to NPCs in Mournhold after relogging once the `MournholdAttack` quest has been done.
-• NPCs and several objects disabled by `Startup` script in TES3, which is executed at the very beginning of the game, will be disabled if the server is "fresh" - none of the 60 cells affected by the TES3 script have files created for them yet.
+â€¢ RavenRock in Solstheim island, including choice of person you side with, service and few less significant statuses, will be loaded properly.
+
+â€¢ Strongholds built through Great House questlines will persist.
+
+â€¢ A fix for auto-goodbye when talking to NPCs in Mournhold after relogging once the `MournholdAttack` quest has been done.
+
+â€¢ NPCs and several objects disabled by `Startup` script in TES3, which is executed at the very beginning of the game, will be disabled if the server is "fresh" - none of the 60 cells affected by the TES3 script have files created for them yet.
 
 ## startupScripts.xlsx
 The excel spreadsheet file contains my findings of how the entities, variables and other things are modified by journal entries and which indexes do so.
