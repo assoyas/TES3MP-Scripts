@@ -19,6 +19,7 @@ Warning! The amount of cliff racers spawned by the script can and will eventuall
 ## SETTINGS
 
 ### Changes you can make in the script
+|Variable|Description|
 |:----|:-----|
 |cliffRacerIDs|Modify this variable if you have more IDs of cliff racers (for example, added by a mod). If you do this, a change must be made for the end number of the loop found below (see comments in the script for further instructions).|
 |cliffRacerCount|How many cliff racers should spawn on each kill.|
