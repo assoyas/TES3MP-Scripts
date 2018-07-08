@@ -1,4 +1,6 @@
-Version `1.0`
+## Version `1.0`
+
+![Werewolf Robe](https://i.imgur.com/7Ylemds.png)
 
 This small script adds a chat command `/wwrobe` that allows players on the server to equip the elusive "Werewolf Robe". This item is essentially the body of a werewolf and is actually given to player when it turns into a werewolf, however, the item cannot be seen in inventory. Still, the item is saved in the player's datafile, so it can be kept track of. The scripts allows some customization, such as:
 
