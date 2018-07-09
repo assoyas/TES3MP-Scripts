@@ -7,6 +7,9 @@ Similar to what DisableAssassins script does, it removes any creatures spawned b
 ## Boots of Actually Blinding Speed (BOABS) (v1.0)
 A harmless script that ensures the boots actually blind player, no matter what magicka resist they have (although it is still possible to bypass this if you have access to console).
 
+## Cliff Racer Sounds (v1.0)
+A not-so-harmless script that plays a random cliff racer sound at random intervals while a player is in the wilderness.
+
 ## Criminals (v1.0)
 A script that enhances the bounty system in TES3MP by adding messages to the chat when players are wanted, prefixes to criminals' messages and award bounty to those that kill the criminals.
 
