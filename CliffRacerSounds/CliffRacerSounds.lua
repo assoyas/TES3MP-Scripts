@@ -3,9 +3,8 @@ require("speechHelper")
 require("time")
 Methods = {}
 -- get sound path
-local sounds = {"moan", "roar", "scrm"}
-local basePath = "Cr/cliffr/"
-local extension = ".wav"
+local creature = "cliff racer"
+local sounds = {"moan", "roar", "scream"}
 math.randomseed(os.time()) -- make random seed, although probably unnecessary
 
 Methods.onCellChange = function(pid) -- run when a player enters a new cell
@@ -60,8 +59,8 @@ Methods.generateSound = function(pid) -- play the sound if still in wilderness
     if inWild == true then
         math.random()
         local sound = math.random(1,3) -- we have three sounds to choose from, pick a random one
-        local speechPath = basePath .. sounds[sound] .. extension
-        tes3mp.PlaySpeech(pid, speechPath)
+        local soundName = "\"".. creature .. " " .. sounds[sound] .. "\""
+        myMod.RunConsoleCommandOnPlayer(pid, "playsound " .. soundName)
     end
 end
 

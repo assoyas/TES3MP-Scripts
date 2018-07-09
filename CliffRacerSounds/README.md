@@ -18,10 +18,10 @@ Warning! This script will probably make your players paranoid or drive them insa
 
 ## SETTINGS
 
-You can modify the script to play different sounds - open the script and see the top variables for path, edit as you wish. If you add more sounds to the list, the `generateSound` function needs to be updated for a higher range of sounds.
+You can modify the script to play different sounds - open the script and see the top variables for path, edit as you wish. You can get the name of the sound by opening data files in construction set and checking the "Sounds" tab. If you add more sounds to the list, the `generateSound` function needs to be updated for a higher range of sounds.
 
 You can also modify the chance for the sound to trigger in `generateRandomNumber` function - see the comments in the script for more details.
 
 ## KNOWN ISSUES
 
-When the sound plays, a TES3 message box with "???" will appear. This is most likely a limitation of the current `PlaySpeech` implementation, as it does not have a message box text as an argument.
+Cliff racer sounds tend to piss people off.
