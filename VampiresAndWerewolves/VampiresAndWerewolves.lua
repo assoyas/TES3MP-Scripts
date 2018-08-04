@@ -166,7 +166,7 @@ Methods.BuyVampirism = function(pid, clan)
         end
     end
     if canTransform == true then
-        if costItem ~= "" then
+        if vampirismCostItemId ~= "" then
             Players[pid].data.inventory[itemIndex].count = Players[pid].data.inventory[itemIndex].count - tonumber(vampirismCostCount)
             if Players[pid].data.inventory[itemIndex].count == 0 then
                 Players[pid].data.inventory[itemIndex] = nil
