@@ -27,13 +27,13 @@ Startup script, which disables a bunch of entities in 60 cells, will not execute
 
 3) Add `startupScripts = require("startupScripts")` at the top, along with all other included scripts.
 
-4) Save `server.lua`, open `stateHelper.lua`.
+4) Save `server.lua`
 
 5) Open `myMod.lua` with a text editor.
 
 6) Find `Methods.OnPlayerConnect = function(pid, playerName)` function. Below it, add `startupScripts.onServerInit(pid)`.
 
-7) Save `myMod.lua`.
+7) Save `myMod.lua`, open `stateHelper.lua`.
 
 8) Find `function StateHelper:LoadJournal(pid, stateObject)` function. At the end of it, you will find `tes3mp.SendJournalChanges(pid)`. Right above it, put a call to this script by adding `startupScripts.onLogin(pid, stateObject)`.
 
