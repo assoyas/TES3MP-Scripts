@@ -16,6 +16,9 @@ A script that enhances the bounty system in TES3MP by adding messages to the cha
 ## CustomQuests (v0.9.3)
 A somewhat experimental version. The script allows you to create custom quests that require players to either hunt specific creatures, travel to a specific cell or acquire specific items. The quests are easy to implement through few lines in a text file - see README.txt and customQuestsMain.txt for explanations of values and examples. The script is written poorly, with no comments, poor optimization and possible game-breaking bugs. See README.txt for known issues. USE THIS AT YOUR OWN RISK.
 
+## PlayTime (v1.0)
+Script that tracks the play time of players playing on the server and saves it (in seconds) to players' data files. Adds two chat commands to either display individual play time or list the play times of all logged in players.
+
 ## RPRolls (v1.1)
 Easy-to-setup script that adds a chat command to roll a random number between <skill/attirbute> and 100. The result is displayed locally. The script was made with roleplaying in mind, where people could roll for checks when resolving conflicts.
 
