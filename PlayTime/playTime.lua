@@ -1,4 +1,4 @@
-Methods = {}
+local Methods = {}
 local playTimeGuiID = 01245780
 Methods.UpdatePlayTime = function()
     for pid, player in pairs(Players) do
