@@ -12,7 +12,7 @@ local disableDremoras = true
 local disableDremorasSpecial = true
 local disableGhosts = true
 local disableDwemerGhosts = true
-Methods = {}
+local Methods = {}
 
 Methods.CheckItem = function(pid, refId)
     local message

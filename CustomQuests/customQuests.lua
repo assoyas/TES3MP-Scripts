@@ -1,7 +1,7 @@
 require("color")
 
 
-Methods = {}
+local Methods = {}
 
 local questPlayerDataPath  = "path/to/folder/"
 local questListPath  = "path/to/folder/where/the/textfile/is/"

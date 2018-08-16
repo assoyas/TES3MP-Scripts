@@ -1,4 +1,4 @@
-Methods = {}
+local Methods = {}
 Methods.findBoots = function(pid)
     local fade = false
     local consoleCommand

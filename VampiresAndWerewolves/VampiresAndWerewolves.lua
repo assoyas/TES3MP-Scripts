@@ -1,5 +1,5 @@
 require("color")
-Methods = {}
+local Methods = {}
 local vampirismCostItemId = "gold_001"          -- ID of the item
 local vampirismCostCureItemId = ""              -- ID of the cure item
 local vampirismCostCount = "100000"             -- amount of the item

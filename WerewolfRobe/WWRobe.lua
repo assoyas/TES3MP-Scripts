@@ -1,5 +1,4 @@
-Methods = {}
-
+local Methods = {}
 local powerReq = 0                                  -- 0 for everyone, 1 for mods, 2 for admins
 local costItem = "gold_001"                         -- ID of item one must pay. Leave "" for no item
 local costCount = 1000                              -- amount of item needed

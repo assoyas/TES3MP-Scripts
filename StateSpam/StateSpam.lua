@@ -1,4 +1,4 @@
-Methods = {}
+local Methods = {}
 Methods.ConsoleSpamPrevention = function(pid, refIndex, refId, cellDescription)
 	local Name = refId.."-Spam"
 	if Players[pid].StateSpam == nil then

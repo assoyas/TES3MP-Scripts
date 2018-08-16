@@ -19,18 +19,17 @@ A somewhat experimental version. The script allows you to create custom quests t
 ## PlayTime (v1.0)
 Script that tracks the play time of players playing on the server and saves it (in seconds) to players' data files. Adds two chat commands to either display individual play time or list the play times of all logged in players.
 
-## RPRolls (v1.1)
+## RPRolls (v1.2)
 Easy-to-setup script that adds a chat command to roll a random number between <skill/attirbute> and 100. The result is displayed locally. The script was made with roleplaying in mind, where people could roll for checks when resolving conflicts.
 
 ## RecursiveCliffRacers (v1.0)
 A TES3MP-implementation of the Recursive Cliff Racers mod, which spawns more cliff racers when one dies.
   
 ## StartupScripts (v1.0)
-### REQUIRES STATESPAM FIX!
 Previously known as "RavenRock", script provides a means to load several variables affecting the states of objects, such as Raven Rock colony in Solstheim, Great House strongholds and disabling various entities that should be disabled at the start of the game. The script may be expanded in the future to include even more fixes for various quests (especially the ones in Tribunal and Bloodmoon expansion) by reading journal entries and changing appropariate TES3 variables through console.
 
 ## StateSpam (v1.0)
-[Thanks to Malseph](https://github.com/Malseph/Mal-s-Public-Server-Scripts-for-Tes3MP/blob/master/Console%20state%20spam%20prevention.lua), StateSpam is mostly meant to help tackle the issues with Raven Rock, especially when two players with different states of the colony are have the cell loaded.
+[Thanks to Malseph](https://github.com/Malseph/Mal-s-Public-Server-Scripts-for-Tes3MP/blob/master/Console%20state%20spam%20prevention.lua), StateSpam is mostly meant to help tackle the issues with Raven Rock, especially when two players with different states of the colony are have the cell loaded. However, this script is included with TES3MP releases from June 2018 and onwards, so it is not necessary to use if you have a newer version of the package.
 
 ## VampiresAndWerewolves (v1.1)
 Currently only involving the first part, the script allows players to bypass the lack of vampirism-associated scripts in current tes3mp version and become vampires of the clan of their choosing. Several customizable features include level requirement to perform transformation, cure the disease as well as customizable cost item and amount and whether or not those choices are allowed in the first place.

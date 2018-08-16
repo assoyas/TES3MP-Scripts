@@ -1,7 +1,7 @@
 -- play a random cliff racer sound at random times when a player is in the exterior
 require("speechHelper")
 require("time")
-Methods = {}
+local Methods = {}
 -- get sound path
 local creature = "cliff racer"
 local sounds = {"moan", "roar", "scream"}
