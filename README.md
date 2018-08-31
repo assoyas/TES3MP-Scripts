@@ -42,4 +42,5 @@ Currently only involving the first part, the script allows players to bypass the
 ## WerewolfRobe (v1.1)
 A small script that allows players to equip werewolf robe - the body of a werewolf - without having to transform into one. Some customization is included in the script to limit who can use it and if there is a cost.
 
-# Note: On 2018-09-01 I put up updates to nearly every script, which, in most cases, added more consistent naming pattern for functions, files and such. Due to renaming of files and functions, updating just the script itself might crash the server - refer to the new instructions for each file to ensure that the proper names for functions are used. I apologize for my lack of attention when first making the scripts and I hope this issue will not repeat in the future.
+# Note:
+On 2018-09-01 I put up updates to nearly every script, which, in most cases, added more consistent naming pattern for functions, files and such. Due to renaming of files and functions, updating just the script itself might crash the server - refer to the new instructions for each file to ensure that the proper names for functions are used. I apologize for my lack of attention when first making the scripts and I hope this issue will not repeat in the future.
