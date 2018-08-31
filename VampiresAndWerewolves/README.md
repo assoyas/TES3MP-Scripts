@@ -1,28 +1,29 @@
-﻿## CURRENT VERSION: 1.1
-Written for `TES3MP 0.6.2 hotfixed`, should work with other versions as well
+﻿## VampiresAndWerewolves
+### VERSION 1.2
 
-# ABOUT THE SCRIPT:
-The script provides a temporary workaround for vampirism in TES3MP. Currently, contracted diseases are not saved unless they are obtained through scripts, meaning that even if you contract the disease, it will not be saved. Furthermore, the script attached to the disease does not trigger after 3 in-game days. Finally, even though the vampire attributes are saved, the related variables that define you as a vampire are not saved, so restarting the game will cause everyone to forget you are a proper vampire.
+**NOTE:** Requires [StartupScripts](https://github.com/Skvysh/TES3MP-Scripts/tree/master/StartupScripts) to work properly, since that script loads vampire state and clan on login.
+ 
+The script aims to enhance the vampire and werewolf features in TES3MP. Current features include on-demand infection and cure of vampirism as well as a chance to infect other players with the disease.
+Since time progression in TES3MP is complicated, the disease does not function very well on its own - therefore, the script forces the infection to happen and skips the 3-day waiting period.
 
-The solution is then to a) given players an option to automatically obtain the disease and trigger the attached script, fully transforming into a vampire of the clan of their chosing and b) to ensure that the variables associated with vampirism are properly loaded every time the player logs in.
-
-As the name implies, it should also do something related to werewolves - indeed, the idea is to (eventually) implement a way to become a werewolf through server-side scripts (including the disease), thus skipping the need to play through Bloodmoon questline. This, assuming there are no issues, will be added later on.
+While detecting player's vampire status in TES3MP is fairly easily (by checking the spellbook), werewolf state is much more complicated - the only way to know if player is a werewolf through normal means is to check for Bloodmoon questline progress - an option that is not very feasable in a synchronised journal scenario. Therefore, anything werewolf related from this script is on hold till I figure out a way to properly track the werewolf state.
 
 ## INSTALLATION:
-To properly install this script, start by placing `VampiresAndWerewolves.lua` to the scripts folder found at `.../tes3mp/mp-stuff/scripts/`
 
-In the same folder, open `server.lua` and make the following changes:
+1) Copy `vampiresAndWerewolves.lua` to `.../tes3mp/mp-stuff/scripts`.
 
-1. add `VaW = require("VampiresAndWerewolves")` somewhere at the top, along with other `require` lines (to make sure the script is loaded).
+2) Open `server.lua` with a text editor.
 
-2. (OPTIONAL) add 
+3) Add `VaW = require("vampiresAndWerewolves")` at the top, along with all other included scripts.
+
+4) (OPTIONAL) add 
 ```
 /vampirism - Join a vampire clan of your choosing\
 /vampirism cure - Attempt to cure vampirism\
 ```
 somewhere at  [local helptext = ... ] lines of code, to include the associated commands in `/help` function.
 
-3. add
+5) Add
 ```
 elseif cmd[1] == "vampirism" and cmd[2] == nil then
 	VaW.Initialize(pid)
@@ -31,30 +32,19 @@ elseif cmd[1] == "vampirism" and cmd[2] == "cure" then
 ```
 where all the chat commands go (can possibly do it after the `elseif (cmd[1] == "greentext" or cmd[1] == "gt") and cmd[2] ~= nil then` command block (to allow people to use these commands).
 
-4. Find `function OnGuiAction(pid, idGui, data)` and under it add `if VaW.OnGUIAction(pid, idGui, data) then return end`.
+6) Find `function OnGuiAction(pid, idGui, data)` and under it add `if VaW.OnGUIAction(pid, idGui, data) then return end`.
 
-5. Save `server.lua` file
+7) Save `server.lua` file
 
-You will also need to make a small change to `base.lua` file, found in `.../tes3mp/mp-stuff/scripts/player/` folder.
+8) Open `base.lua` file, found in `.../tes3mp/mp-stuff/scripts/player/` folder.
 
-Find `function BasePlayer:FinishLogin()` function and at the end of it add `VaW.OnLogin(self.pid)`, in order to properly load vampirism after login.
+9) Find `deathReason = "was killed by " .. deathReason` and above it add `VaW.OnPlayerDeath(self.pid, deathReason)`
 
-Save `base.lua` file as well and you should be good to go.
+10) Save `base.lua` file as well.
 
 ## SETTINGS:
-There are some other changes you can make at the top of the script file. The defaults are:
-```
-local vampirismCostItemId = "gold_001"          -- ID of the item
-local vampirismCostCureItemId = ""              -- ID of the cure item
-local vampirismCostCount = "100000"             -- amount of the item
-local vampirismCostCureCount = ""               -- amount of the cure item
-local vampirismCostText = "This process will be instant and will cost you 100.000 gold."        -- text to display regarding the item and count, cannot be made dynamic with current tools in a simple way
-local vampirismCostCureText = "This process will be instant. The cure will cost you nothing"    -- same as before, but for cure
-local vampirismLevelReq = 0                     -- optional level requirement; keep it at 0 if no requirement is desired (unless you have players being level 0 for some reason)
-local allowCure = true                          -- allow curing?
-local allowVampirism = true                     -- allow infection?
-local displayGlobalTransformationMessage = true -- whether or not to display the transformation message to the whole server
-```
+There are a bunch of settings that you can change. They are found at the top of the script and the comments contain a description of what they are in charge of.
+
 ## COMMANDS:
 
 ### Commands added by this script
@@ -64,6 +54,8 @@ local displayGlobalTransformationMessage = true -- whether or not to display the
 |/vampirism cure|Checks if player is a vampire and is allowed to cure themselves of vampirism. If so, a choicebox pops up asking to pay the price (if applicable) and curing the player if they proceed.|
 
 ## CHANGELOG:
+### 1.2:
+Cut out some redundant functions, fixed an issue with curing being completely free regardless of values used, added an option to be able to infect other players by killing them.
 
 ### 1.1:
 Added `/vampirism cure`, associated settings as well as ability to allow/disallow obtaining and curing the diseases on the server via the commands.

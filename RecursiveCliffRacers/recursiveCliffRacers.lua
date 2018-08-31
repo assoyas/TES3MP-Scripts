@@ -1,3 +1,7 @@
+--------------------
+-- Version: 1.0.1 --
+--------------------
+
 require("color")
 local Methods = {}
 Methods.HitIt = function(pid)

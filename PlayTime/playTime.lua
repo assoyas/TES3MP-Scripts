@@ -1,3 +1,7 @@
+--------------------
+-- Version: 1.0.1 --
+--------------------
+
 local Methods = {}
 local playTimeGuiID = 01245780
 Methods.UpdatePlayTime = function()

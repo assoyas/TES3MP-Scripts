@@ -1,3 +1,7 @@
+------------------
+-- Version: 1.1 --
+------------------
+
 -- Settings
 displayGlobalWanted = true -- whether or not to display the global messages in chat when a player's wanted status changes
 displayGlobalClearedBounty = true -- whether or not to display a global message when a player clears their bounty
@@ -6,7 +10,7 @@ bountyItem = "gold_001" -- item used as bounty, in case you use a custom currenc
 require("color")
 
 local Methods = {}
-Methods.onLogin = function(pid) -- set the criminal level as a custom variable for players based on their bounty
+Methods.OnLogin = function(pid) -- set the criminal level as a custom variable for players based on their bounty
     if Players[pid].data.customVariables.criminal == nil then
         local criminal
         local bounty = Players[pid].data.stats.bounty
@@ -23,7 +27,7 @@ Methods.onLogin = function(pid) -- set the criminal level as a custom variable f
     end
 end
 
-Methods.isCriminal = function(pid) -- get criminal prefix for chat messages
+Methods.IsCriminal = function(pid) -- get criminal prefix for chat messages
     local bounty = tes3mp.GetBounty(pid)
     local prefix = ""
     if bounty >= 5000 then
@@ -36,7 +40,7 @@ Methods.isCriminal = function(pid) -- get criminal prefix for chat messages
     return prefix
 end
 
-Methods.getNewCriminalLevel = function(pid) -- get the criminal level based on current bounty and previous level
+Methods.GetNewCriminalLevel = function(pid) -- get the criminal level based on current bounty and previous level
     local bounty = tes3mp.GetBounty(pid)
     local previousCriminal = Players[pid].data.customVariables.criminal
     local criminal
@@ -65,10 +69,10 @@ Methods.getNewCriminalLevel = function(pid) -- get the criminal level based on c
     return criminal
 end
 
-Methods.updateBounty = function(pid) -- display global messages if needed when a criminal level changes
+Methods.UpdateBounty = function(pid) -- display global messages if needed when a criminal level changes
     local message
     local playerName = tes3mp.GetName(pid)
-    local criminal = Criminals.getNewCriminalLevel(pid)
+    local criminal = criminals.GetNewCriminalLevel(pid)
     if criminal > 0 then
         if displayGlobalWanted == true then
             message = color.Crimson .. "[Alert] " .. color.Brown .. playerName .. " " .. color.Default
@@ -92,11 +96,10 @@ Methods.updateBounty = function(pid) -- display global messages if needed when a
     end
 end
 
-Methods.processBountyReward = function(pid, killertxt) -- give rewards for claiming a bounty
+Methods.ProcessBountyReward = function(pid, killer) -- give rewards for claiming a bounty
     local playerName = tes3mp.GetName(pid)
-    killer = string.sub(killertxt, 15)
     local lastPid = tes3mp.GetLastPlayerId()
-    local killerPID = -1
+    local killerPid = -1
     local currentBounty = tes3mp.GetBounty(pid)
     local newBounty
     local reward
@@ -105,22 +108,18 @@ Methods.processBountyReward = function(pid, killertxt) -- give rewards for claim
         for i = 0, lastPid do
             if Players[i] ~= nil and Players[i]:IsLoggedIn() then
                 if tostring(Players[i].name) == tostring(killer) then
-                    killerPID = Players[i].pid -- get killer's PID, assuming it was an actual player
+                    killerPid = Players[i].pid -- get killer's PID, assuming it was an actual player
                     break
                 end
             end
         end
-        if killerPID ~= -1 then -- if a killer was found
+        if killerPid ~= -1 then -- if a killer was found
             if bountyItem ~= "" then
-                local message = currentBounty .. "\n"
-                tes3mp.SendMessage(pid, message, false)
-                for index, item in pairs(Players[pid].data.inventory) do
-                    if tableHelper.containsKeyValue(Players[pid].data.inventory, "refId", bountyItem, true) then
-                        itemIndex = tableHelper.getIndexByNestedKeyValue(Players[pid].data.inventory, "refId", bountyItem)
-                        itemCount = Players[pid].data.inventory[itemIndex].count -- find how much gold the player has
-                    else
-                        itemCount = 0
-                    end
+                if tableHelper.containsKeyValue(Players[pid].data.inventory, "refId", bountyItem, true) then
+                    itemIndex = tableHelper.getIndexByNestedKeyValue(Players[pid].data.inventory, "refId", bountyItem)
+                    itemCount = Players[pid].data.inventory[itemIndex].count -- find how much gold the player has
+                else
+                    itemCount = 0
                 end
                 if itemCount >= currentBounty then -- if a bounty can be fully cleared, do so
                     newBounty = 0
@@ -130,7 +129,7 @@ Methods.processBountyReward = function(pid, killertxt) -- give rewards for claim
                     reward = itemCount
                 end
                 local structuredItem = { refId = bountyItem, count = reward, charge = -1 } -- give the reward to the killer
-                table.insert(Players[killerPID].data.inventory, structuredItem)
+                table.insert(Players[killerPid].data.inventory, structuredItem)
                 if itemCount ~= 0 then -- if the player actually has gold
                     Players[pid].data.inventory[itemIndex].count = Players[pid].data.inventory[itemIndex].count - reward --remove the gold
                     if Players[pid].data.inventory[itemIndex].count == 0 then
@@ -142,7 +141,7 @@ Methods.processBountyReward = function(pid, killertxt) -- give rewards for claim
                         tes3mp.SendMessage(pid, message, true)
                     else
                         message = color.Brown .. "You" .. color.Default .. " have claimed a bounty of " .. tostring(reward) .. " by killing " .. color.Brown .. Players[pid].name .. color.Default .. ".\n"
-                        tes3mp.SendMessage(killerPID, message, false)
+                        tes3mp.SendMessage(killerPid, message, false)
                     end
                     if newBounty == 0 then -- display additional message to let people know the player is no longer a criminal
                         if displayGlobalClearedBounty == true then
@@ -157,10 +156,10 @@ Methods.processBountyReward = function(pid, killertxt) -- give rewards for claim
                     Players[pid]:LoadInventory() -- save inventories for both players
                     Players[pid]:LoadEquipment()
                     Players[pid]:Save()
-                    Players[killerPID]:LoadInventory()
-                    Players[killerPID]:LoadEquipment()
-                    Players[killerPID]:Save()
-                    Criminals.getNewCriminalLevel(pid)
+                    Players[killerPid]:LoadInventory()
+                    Players[killerPid]:LoadEquipment()
+                    Players[killerPid]:Save()
+                    criminals.GetNewCriminalLevel(pid)
                 end
             end
         end

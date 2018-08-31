@@ -1,5 +1,5 @@
 ﻿## Boots of Actually Blinding Speed (BOABS)
-### VERSION `1.0`
+### VERSION 1.1
 
 *For when you reeeeally hate people who use those boots*
 
@@ -14,6 +14,13 @@ Note that the game itself uses `FadeIn` and `FadeOut` in a number of cases, so i
 
 3) Add `BOABS = require("BOABS")` at the top, along with all other included scripts.
 
-4) In `server.lua`, find `function OnPlayerEquipment(pid)` and inside this block add `BOABS.findBoots(pid)`.
+4) In `server.lua`, find `function OnPlayerEquipment(pid)` and inside this block add `BOABS.FindBoots(pid)`.
 
-5) Save `server.lua` and you should be good to go.
+5) Save `server.lua` and start the server. Try equipping Boots of Blinding Speed with a high amount of Resist Magicka effecting you. Your screen should fade to black in a second.
+
+## CHANGELOG:
+### 1.1:
+Rewritten the script to be bit more efficient, as well as use console command only once, use more consistent capitalization in the script.
+
+### 1.0:
+Initial release of the script.

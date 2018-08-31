@@ -1,5 +1,5 @@
 ﻿## StateSpam fix
-### VERSION `1.0`
+### VERSION 1.0.1
 
 **Note:** If you are using a TES3MP version downloaded in June 2018 or later, a variation of this script is already included in the core package and an individual installation is not needed.
 
@@ -7,19 +7,26 @@
 
 ## INSTALLING INSTRUCTIONS
 
-1) Copy `StateSpam.lua` to `.../tes3mp/mp-stuff/scripts`.
+1) Copy `stateSpam.lua` to `.../tes3mp/mp-stuff/scripts`.
 
 2) Open `server.lua` with a text editor.
 
-3) Add `StateSpam = require("StateSpam")` at the top, along with all other included scripts.
+3) Add `stateSpam = require("stateSpam")` at the top, along with all other included scripts.
 
 4) Save `server.lua`, open `.../tes3mp/mp-stuff/cell/base.lua`.
 
 5) Find `function BaseCell:SaveObjectStates(pid)` function. Between `tes3mp.LogAppend(1, "- " .. refIndex .. ", refId: " .. refId .. ", state: " .. tostring(state))` and `tableHelper.insertValueIfMissing(self.data.packets.state, refIndex)` insert
 ```
 if state == false then
-    StateSpam.ConsoleSpamPrevention(pid, refIndex, refId, self.description)
+    stateSpam.ConsoleSpamPrevention(pid, refIndex, refId, self.description)
 end
 ```
 
-6) Save `base.lua` and hope that nothing breaks.
+6) Save `base.lua`.
+
+## CHANGELOG:
+### 1.0.1:
+Minor capitalization changes.
+
+### 1.0:
+Initial release of the script.

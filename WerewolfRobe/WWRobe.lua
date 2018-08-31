@@ -1,4 +1,10 @@
+------------------
+-- Version: 1.1 --
+------------------
+
+require("color")
 local Methods = {}
+
 local powerReq = 0                                  -- 0 for everyone, 1 for mods, 2 for admins
 local costItem = "gold_001"                         -- ID of item one must pay. Leave "" for no item
 local costCount = 1000                              -- amount of item needed
@@ -40,23 +46,21 @@ Methods.CostCheck = function(pid)
     local message
     local itemCount
     local itemIndex
-    local canTurnIn = true
+    local canPurchase = true
     if costItem ~= "" then
-        for index, item in pairs(Players[pid].data.inventory) do
-            if tableHelper.containsKeyValue(Players[pid].data.inventory, "refId", costItem, true) then
-                itemIndex = tableHelper.getIndexByNestedKeyValue(Players[pid].data.inventory, "refId", costItem)
-                itemCount = Players[pid].data.inventory[itemIndex].count
-            else
-                itemCount = 0
-            end
+        itemIndex = tableHelper.getIndexByNestedKeyValue(Players[pid].data.inventory, "refId", costItem)
+        if itemIndex ~= nil then
+            itemCount = Players[pid].data.inventory[itemIndex].count
+        else
+            itemCount = 0
         end
-        if tonumber(itemCount) < tonumber(costCount) then
-            canTurnIn = false
+        if itemCount < costCount then
+            canPurchase = false
         end
     end
-    if canTurnIn == true then
+    if canPurchase == true then
         if costItem ~= "" then
-            Players[pid].data.inventory[itemIndex].count = Players[pid].data.inventory[itemIndex].count - tonumber(costCount)
+            Players[pid].data.inventory[itemIndex].count = itemCount - costCount
             if Players[pid].data.inventory[itemIndex].count == 0 then
                 Players[pid].data.inventory[itemIndex] = nil
             end
@@ -65,7 +69,6 @@ Methods.CostCheck = function(pid)
         tes3mp.SendMessage(pid, message, false)
         Players[pid]:LoadInventory()
         Players[pid]:LoadEquipment()
-        Players[pid]:Save()
         WWRobe.EquipRobe(pid)
     else
         message = color.IndianRed .. "Item missing.\n" .. color.Default
@@ -75,15 +78,13 @@ end
 
 Methods.EquipRobe = function(pid)
     if Players[pid].data.equipment[11] == nil then
-        local items = { {"werewolfrobe", "1", "1"}}
-        for i,item in pairs(items) do
-            local structuredItem = { refId = item[1], count = item[2], charge = item[3] }
-            table.insert(Players[pid].data.equipment, 11, structuredItem)
-        end
+        local structuredItem = {enchantmentCharge = -1, refId = "werewolfrobe", count = 1, charge = -1}
+        table.insert(Players[pid].data.equipment, 11, structuredItem)
     else
         Players[pid].data.equipment[11].refId = "werewolfrobe"
-        Players[pid].data.equipment[11].count = "1"
-        Players[pid].data.equipment[11].charge = "1"
+        Players[pid].data.equipment[11].count = 1
+        Players[pid].data.equipment[11].charge = -1
+        Players[pid].data.equipment[11].enchantmentCharge = -1
     end
     Players[pid]:Save()
     Players[pid]:LoadInventory()

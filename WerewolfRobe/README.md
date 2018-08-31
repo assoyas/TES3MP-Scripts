@@ -1,11 +1,11 @@
-## Version `1.0`
+﻿## Werewolf Robe
+### VERSION 1.1
 
 ![Werewolf Robe](https://i.imgur.com/7Ylemds.png)
 
 This small script adds a chat command `/wwrobe` that allows players on the server to equip the elusive "Werewolf Robe". This item is essentially the body of a werewolf and is actually given to player when it turns into a werewolf, however, the item cannot be seen in inventory. Still, the item is saved in the player's datafile, so it can be kept track of. The scripts allows some customization, such as:
 
 • Who is allowed to equip the robe (everyone/mods and admins/admins only)
-
 • Whether the process cost anything (both the item and the amount of item)
 
 ## Installing instructions
@@ -22,8 +22,15 @@ This small script adds a chat command `/wwrobe` that allows players on the serve
 `elseif cmd[1] == "wwrobe" then WWRobe.Initialize(pid)`
 (or just put it anywhere below a previous command, such as `elseif (cmd[1] == "greentext"...`).
 
-6) Find `if myMod.OnGUIAction(pid, idGui, data) then return end` near the end and add `if WWRobe.OnGUIAction(pid, idGui, data) then return end` below it.
+6) Find `if myMod.OnGUIAction(pid, idGui, data) then return end` near the end of the file and add `if WWRobe.OnGUIAction(pid, idGui, data) then return end` below that line.
 
 7) (OPTIONAL) Open `WWRobe.lua` and edit the variables at the top, if you wish.
 
-8) Start your server and type `/wwrobe` in chat to see some magic
+8) Start your server and type `/wwrobe` in chat to see some magic.
+
+## CHANGELOG:
+### 1.1:
+Removed some redundant checks to speed things up.
+
+### 1.0:
+Initial release of the script.

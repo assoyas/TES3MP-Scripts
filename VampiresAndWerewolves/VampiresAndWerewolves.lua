@@ -1,73 +1,62 @@
+------------------
+-- Version: 1.2 --
+------------------
+
 require("color")
 local Methods = {}
+-- Vampire variables
 local vampirismCostItemId = "gold_001"          -- ID of the item
 local vampirismCostCureItemId = ""              -- ID of the cure item
-local vampirismCostCount = "100000"             -- amount of the item
-local vampirismCostCureCount = ""               -- amount of the cure item
+local vampirismCostCount = 100000               -- amount of the item
+local vampirismCostCureCount = 0                -- amount of the cure item
 local vampirismCostText = "This process will be instant and will cost you 100.000 gold."        -- text to display regarding the item and count, cannot be made dynamic with current tools in a simple way
 local vampirismCostCureText = "This process will be instant. The cure will cost you nothing"    -- same as before
 local vampirismGUIID = 695874                   -- GUI ID for transformation texboxes, do not touch
 local vampirismCureGUIID = 695875               -- no touchies
 local vampirismLevelReq = 0                     -- optional level requirement; keep it at 0 if no requirement is desired (unless you have players being level 0 for some reason)
-local allowCure = true                          -- allow curing?
+local allowVampirismCure = true                 -- allow curing?
 local allowVampirism = true                     -- allow infection?
-local displayGlobalTransformationMessage = true -- whether or not to display the transformation message to the whole server
+local displayGlobalVampirismTransformationMessage = true -- whether or not to display the transformation message to the whole server
+local vampirismInfectOnKill = true              -- can players contract the disease by being killed by another (vampire) player?
+local vampirismInfectChance = 25                -- chance (in percentage) for that to happen
+local vampirismInfectLevelThreshold = 20        -- minimum level for player to be eligible for infection that way
+local displaygGlobalVampirismInfectionMessage = true -- whether to display a global message when infection this way happens or not
 
+-- function to check if player is a vampire
 Methods.IsVampire = function(pid)
-    local isVampire
-    for index, item in pairs(Players[pid].data.spellbook) do
-        if tableHelper.containsKeyValue(Players[pid].data.spellbook, "spellId", "vampire attributes", true) then
-            isVampire = true
-        else
-            isVampire = false
-        end
+    if tableHelper.containsKeyValue(Players[pid].data.spellbook, "spellId", "vampire attributes", true) then
+        return true
+    else
+        return false
     end
-    return isVampire
+    return false
 end
 
-Methods.OnLogin = function(pid)
-    local message = ""
-    local vampireClan
-    local isVampire = false
-    local consoleAddSpell
-    local consoleStartScript
-    isVampire = VaW.IsVampire(pid)
-    if isVampire == true then
-        for index, item in pairs(Players[pid].data.spellbook) do
-            if tableHelper.containsKeyValue(Players[pid].data.spellbook, "spellId", "vampire berne specials", true) then
-                vampireClan = "berne"
-            elseif tableHelper.containsKeyValue(Players[pid].data.spellbook, "spellId", "vampire aundae specials", true) then
-                vampireClan = "aundae"
-            elseif tableHelper.containsKeyValue(Players[pid].data.spellbook, "spellId", "vampire quarra specials", true) then
-                vampireClan = "quarra"
-            else
-                vampireClan = "none"
-            end
-        end
-        if vampireClan ~= "none" then
-            consoleAddSpell = "player->addspell \"vampire blood " .. vampireClan .. "\""
-            consoleStartScript = "startscript, \"vampire_" .. vampireClan .. "_PC\""
-        else
-            local logmessage = "VaW: WARNING! PLAYER PID" .. pid .. " IS VAMPIRE WITH NO CLAN\n"
-            tes3mp.LogMessage(0, message)
-        end
-        myMod.RunConsoleCommandOnPlayer(pid, consoleAddSpell)
-        myMod.RunConsoleCommandOnPlayer(pid, consoleStartScript)
+-- return player's vampire clan as a string or false if there's none
+Methods.GetVampireClan = function(pid)
+    if tableHelper.containsKeyValue(Players[pid].data.spellbook, "spellId", "vampire aundae specials", true) then
+        return "aundae"
+    elseif tableHelper.containsKeyValue(Players[pid].data.spellbook, "spellId", "vampire brene specials", true) then
+        return "brene"
+    elseif tableHelper.containsKeyValue(Players[pid].data.spellbook, "spellId", "vampire quarra specials", true) then
+        return "quarra"
+    else
+        return false
     end
+    return false
 end
 
-Methods.Initialize = function(pid)
+-- check if player meets the requirements for vampirism infection
+Methods.InitializeVampirism = function(pid)
     local level = tonumber(Players[pid].data.stats.level)
     local message
-    local isVampire
     if allowVampirism == true then
-        isVampire = VaW.IsVampire(pid)
-        if isVampire == false then
+        if VaW.IsVampire(pid) == false then
             if level < vampirismLevelReq then
                 message = color.Red .. "Insufficient level. Required: " .. vampirismLevelReq .. "\n" .. color.Default
                 tes3mp.SendMessage(pid, message, false)
             else
-                VaW.ShowCostBox(pid)
+                VaW.ShowVampirismCostBox(pid)
             end
         else
             message = color.Red .. "You are already a vampire.\n" .. color.Default
@@ -79,13 +68,12 @@ Methods.Initialize = function(pid)
     end
 end
 
-Methods.InitializeCure = function(pid)
+-- setup the display of cure message box
+Methods.InitializeVampirismCure = function(pid)
     local message
-    local isVampire
-    isVampire = VaW.IsVampire(pid)
-    if allowCure == true then
-        if isVampire == true then
-            VaW.ShowCureBox(pid)
+    if allowVampirismCure == true then
+        if VaW.IsVampire(pid) then
+            VaW.ShowVampirismCureBox(pid)
         else
             message = color.Red .. "You are not a vampire.\n" .. color.Default
             tes3mp.SendMessage(pid, message, false)
@@ -96,7 +84,8 @@ Methods.InitializeCure = function(pid)
     end
 end
 
-Methods.ShowCostBox = function(pid)
+-- show clan options
+Methods.ShowVampirismCostBox = function(pid)
     local label = "Select your vampire clan.\n"
     if vampirismCostItemId ~= "" then
         label = label .. vampirismCostText
@@ -105,8 +94,9 @@ Methods.ShowCostBox = function(pid)
     tes3mp.CustomMessageBox(pid, vampirismGUIID, label, buttonData)
 end
 
-Methods.ShowCureBox = function(pid)
-    local label = "Are you sure you want to cure yourself?.\n"
+-- display cure message box
+Methods.ShowVampirismCureBox = function(pid)
+    local label = "Are you sure you want to cure yourself?\n"
     if vampirismCostCureItemId ~= "" then
         label = label .. vampirismCostCureText
     end
@@ -114,23 +104,24 @@ Methods.ShowCureBox = function(pid)
     tes3mp.CustomMessageBox(pid, vampirismCureGUIID, label, buttonData)
 end
 
+-- detect which button was clicked
 Methods.OnGUIAction = function(pid, idGui, data)
 	if idGui == vampirismGUIID then
 		if tonumber(data) == 0 then -- Aundae
-			VaW.BuyVampirism(pid,1)
+			VaW.ProcessPurchase(pid, "vampirismBuy", vampirismCostItemId, vampirismCostCount, "aundae")
 			return true
 		elseif tonumber(data) == 1 then -- Berne
-            VaW.BuyVampirism(pid,2)
+            VaW.ProcessPurchase(pid, "vampirismBuy", vampirismCostItemId, vampirismCostCount, "berne")
 			return true
         elseif tonumber(data) == 2 then -- Quarra
-            VaW.BuyVampirism(pid,3)
+            VaW.ProcessPurchase(pid, "vampirismBuy", vampirismCostItemId, vampirismCostCount, "quarra")
 			return true
         elseif tonumber(data) == 3 then -- Cancel
 			return true
 		end
 	elseif idGui == vampirismCureGUIID then
         if tonumber(data) == 0 then -- Cure
-			VaW.Cure(pid)
+			VaW.ProcessPurchase(pid, "vampirismCure", vampirismCostCureItemId, vampirismCostCureCount, 0)
 			return true
 		elseif tonumber(data) == 1 then -- Cancel
 			return true
@@ -138,92 +129,121 @@ Methods.OnGUIAction = function(pid, idGui, data)
 	end
 end
 
-Methods.BuyVampirism = function(pid, clan)
+-- generic function to process a purchase of a service
+--[[
+pid - player's ID
+action - what kind of service we're buying (ex. cureVampirism)
+item - itemID passed on for the specific service
+count - the amount of the item
+extra - additional variable passed on, such as the vampire clan
+]]
+Methods.ProcessPurchase = function(pid, action, item, count, extra)
     local message
     local itemCount
     local itemIndex
-    local canTransform = true
-    local clanName
+    local canPurchase = true
     local playerName = tes3mp.GetName(pid)
-    if clan == 1 then
-        clanName = "Aundae"
-    elseif clan == 2 then
-        clanName = "Berne"
-    elseif clan == 3 then
-        clanName = "Quarra"
-    end
-    if vampirismCostItemId ~= "" then
-        for index, item in pairs(Players[pid].data.inventory) do
-            if tableHelper.containsKeyValue(Players[pid].data.inventory, "refId", vampirismCostItemId, true) then
-                itemIndex = tableHelper.getIndexByNestedKeyValue(Players[pid].data.inventory, "refId", vampirismCostItemId)
-                itemCount = Players[pid].data.inventory[itemIndex].count
-            else
-                itemCount = 0
-            end
+    if item ~= "" then
+        itemIndex = tableHelper.getIndexByNestedKeyValue(Players[pid].data.inventory, "refId", item)
+        if itemIndex ~= nil then
+            itemCount = Players[pid].data.inventory[itemIndex].count
+        else
+            itemCount = 0
         end
-        if tonumber(itemCount) < tonumber(vampirismCostCount) then
-            canTransform = false
+        if itemCount < count then
+            canPurchase = false
         end
     end
-    if canTransform == true then
-        if vampirismCostItemId ~= "" then
-            Players[pid].data.inventory[itemIndex].count = Players[pid].data.inventory[itemIndex].count - tonumber(vampirismCostCount)
+    if canPurchase == true then
+        if item ~= "" then
+            Players[pid].data.inventory[itemIndex].count = itemCount - count
             if Players[pid].data.inventory[itemIndex].count == 0 then
                 Players[pid].data.inventory[itemIndex] = nil
             end
         end
-        message = color.Red .. "Transformation complete. You are now part of the " .. clanName .. " clan.\n" .. color.Default
-        tes3mp.SendMessage(pid, message, false)
-        if displayGlobalTransformationMessage == true then
-            message = color.DarkSalmon .. playerName .. " has joined the " .. clanName .. " vampire clan.\n" .. color.Default
-            tes3mp.SendMessage(pid, message, true)
-        end
         Players[pid]:LoadInventory()
         Players[pid]:LoadEquipment()
-        Players[pid]:Save()
-        VaW.Transform(pid,clan)
+        if action == "vampirismBuy" then
+            message = color.Red .. "Transformation complete. You are now part of the " .. extra .. " clan.\n" .. color.Default
+            tes3mp.SendMessage(pid, message, false)
+            if displayGlobalVampirismTransformationMessage == true then
+                message = color.DarkSalmon .. playerName .. " has joined the " .. extra .. " vampire clan.\n" .. color.Default
+                tes3mp.SendMessage(pid, message, true)
+            end
+            VaW.VampirismTransform(pid, extra)
+        elseif action == "vampirismCure" then
+            VaW.VampirismCure(pid)
+        elseif action == "werewolfBuy" then
+            VaW.WerewolfTransform(pid)
+        elseif action == "werewolfCure" then
+            VaW.WerewolfCure(pid)
+        end
     else
         message = color.IndianRed .. "Item(s) missing.\n" .. color.Default
         tes3mp.SendMessage(pid, message, false)
     end
 end
 
-Methods.Transform = function(pid, clan)
-    local consoleAddSpell
-    local consoleStartScript
-    local consoleSetPCVamp
-    local vampireClan
-    if clan == 1 then
-        vampireClan = "aundae"
-    elseif clan == 2 then
-        vampireClan = "berne"
-    elseif clan == 3 then
-        vampireClan = "quarra"
-    end
-    consoleSetPCVamp = "set PCVampire to 0"
-    consoleAddSpell = "player->addspell \"vampire blood " .. vampireClan .. "\""
-    consoleStartScript = "startscript, \"vampire_" .. vampireClan .. "_PC\""
-    myMod.RunConsoleCommandOnPlayer(pid, consoleSetPCVamp)
-    myMod.RunConsoleCommandOnPlayer(pid, consoleAddSpell)
-    myMod.RunConsoleCommandOnPlayer(pid, consoleStartScript)
+-- transform the player into a vampire of the clan
+Methods.VampirismTransform = function(pid, clan)
+    local message
+    local playerName = tes3mp.GetName(pid)
+    myMod.RunConsoleCommandOnPlayer(pid, "set PCVampire to 0")
+    myMod.RunConsoleCommandOnPlayer(pid, "player->addspell \"vampire blood " .. clan .. "\"")
+    myMod.RunConsoleCommandOnPlayer(pid, "startscript, \"vampire_" .. clan .. "_PC\"")
     myMod.OnPlayerSpellbook(pid)
 end
 
-Methods.Cure = function(pid)
-    local consoleCure
-    local consoleSetPCVamp
+-- cure the player of vampirism
+Methods.VampirismCure = function(pid)
     local message
     local playerName = tes3mp.GetName(pid)
-    consoleCure = "startscript, \"Vampire_Cure_PC\""
-    consoleSetPCVamp = "set PCVampire to 0"
-    myMod.RunConsoleCommandOnPlayer(pid, consoleCure)
-    --myMod.RunConsoleCommandOnPlayer(pid, consoleSetPCVamp)   -- NO WORKIES, SETS VARIABLE TOO FAST
+    myMod.RunConsoleCommandOnPlayer(pid, "startscript, \"Vampire_Cure_PC\"")
     message = color.Green .. "You no longer feel the thirst for blood. You've been cured!\n" .. color.Default
     tes3mp.SendMessage(pid, message, false)
-    if displayGlobalTransformationMessage == true then
+    if displayGlobalVampirismTransformationMessage == true then
         message = color.DarkGreen .. playerName .. " has cured their vampirism.\n" .. color.Default
         tes3mp.SendMessage(pid, message, true)
     end
     myMod.OnPlayerSpellbook(pid)
+end
+
+Methods.OnPlayerDeath = function(pid, killerName)
+    local playerName = tes3mp.GetName(pid)
+    local lastPid = tes3mp.GetLastPlayerId()
+    local killerPid = -1
+    local message
+    if Players[pid].data.stats.level >= vampirismInfectLevelThreshold then
+        for i = 0, lastPid do
+            if Players[i] ~= nil and Players[i]:IsLoggedIn() then
+                if tostring(Players[i].name) == tostring(killerName) then
+                    killerPid = Players[i].pid -- get killer's PID, assuming it was an actual player
+                    break
+                end
+            end
+        end
+        if killerPid ~= -1 then -- if a killer was found
+            if VaW.IsVampire(killerPid) then
+                if vampirismInfectOnKill == true then
+                    math.random()
+                    local roll = math.random(0, 100)
+                    if roll <= vampirismInfectChance then
+                        local clan = VaW.GetVampireClan(killerPid)
+                        if clan ~= false then
+                            VaW.VampirismTransform(pid, clan)
+                            message = color.Red .. "You have contracted porphyric hemophilia from " .. killerName .. ". You are now part of the " .. clan .. " bloodline.\n" .. color.Default
+                            tes3mp.SendMessage(pid, message, false)
+                            message = color.Red .. "You have infected " .. playerName .. " with the vampire curse.\n" .. color.Default
+                            tes3mp.SendMessage(killerPid, message, false)
+                            if displaygGlobalVampirismInfectionMessage == true then
+                                message = color.DarkSalmon .. playerName .. " has been infected by " .. killerName .. " with the curse of " .. clan .. " vampire clan.\n" .. color.Default
+                                tes3mp.SendMessage(pid, message, true)
+                            end
+                        end
+                    end
+                end
+            end
+        end
+    end
 end
 return Methods

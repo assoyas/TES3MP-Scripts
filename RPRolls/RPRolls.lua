@@ -1,3 +1,7 @@
+--------------------
+-- Version: 1.2.1 --
+--------------------
+
 require("color")
 local Methods = {}
 local attributeArray = {"strength", "intelligence", "willpower", "agility", "endurance", "speed", "personality", "luck"}
@@ -5,7 +9,7 @@ local skillArray = {"block", "armorer", "mediumarmor", "heavyarmor", "blunt", "l
 "enchant", "destruction", "alteration", "illusion", "conjuration", "mysticism", "restoration", "alchemy", "unarmored",
 "security", "sneak", "acrobatics", "lightarmor", "shortblade", "marksman", "mercantile", "speechcraft", "handtohand"}
 
-Methods.doRoll = function(pid, playerName, rollCheck)
+Methods.DoRoll = function(pid, playerName, rollCheck)
     local cellDescription = Players[pid].data.location.cell
     local message
     local rollCheckId

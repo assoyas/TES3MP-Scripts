@@ -1,5 +1,5 @@
 ## PlayTime
-### VERSION `1.0`
+### VERSION 1.1
 
 Script tracks players' play time on the server and stores it in their data files in seconds. Two new chat commands - /playtime and /playtime all - displays either individual play time or every player's that is currently online. The play time is converted into days/hours/minutes/seconds format when it is being displayed.
 
@@ -38,3 +38,10 @@ elseif cmd[1] == "playtime" then
 |:----|:-----|
 |/playtime|Displays player's total play time on the server. The variable is stored in player's data file in seconds. The function converts it into days/hours/minutes/seconds format and then modifies the string to account for plural, singular or non-existant values. The result is displayed in a TES3 message box.|
 |/playtime all|Displays a TES3 list box with the names, PIDs and their play time of all connected players. The time, stored in their data files, is converted from seconds to d/h/m/s format.|
+
+## CHANGELOG:
+### 1.1:
+Instead of adding 1 towards each playTime for every 1-second timer function that expires, calculate the time between current and previous tick and add this new number (unless it is more than 10 seconds). This should lead to a more accurate track of time for more laggy servers.
+
+### 1.0:
+Initial release of the script.
