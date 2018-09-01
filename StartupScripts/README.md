@@ -26,21 +26,23 @@ If you use a synchronyzed journal, one player progressing in the main Bloodmoon 
 
 3) Open `server.lua` with a text editor.
 
-4) Find `myMod.PushPlayerList(Players)` and below it add `startupScripts.Initialize()`.
+4) Add `startupScripts = require("startupScripts")` at the top of the file along with other included scripts.
 
-5) Find `myMod.OnPlayerCellChange(pid)` and below it add `startupScripts.OnCellChange(pid)`.
+5) Find `myMod.PushPlayerList(Players)` and below it add `startupScripts.Initialize()`.
 
-6) Save `server.lua` and close it. Open `myMod.lua`.
+6) Find `myMod.OnPlayerCellChange(pid)` and below it add `startupScripts.OnCellChange(pid)`.
 
-7) Find `Players[pid].name = playerName` and below it add `startupScripts.RunStartup(pid)`.
+7) Save `server.lua` and close it. Open `myMod.lua`.
 
-8) Save `myMod.lua` and close it. Open `/player/base.lua`.
+8) Find `Players[pid].name = playerName` and below it add `startupScripts.RunStartup(pid)`.
 
-9) Find `if self.hasAccount ~= false then` and below it add `startupScripts.OnLogin(self.pid)`.
+9) Save `myMod.lua` and close it. Open `/player/base.lua`.
 
-10) Save `base.lua` and close it.
+10) Find `if self.hasAccount ~= false then` and below it add `startupScripts.OnLogin(self.pid)`.
 
-11) (OPTIONAL) Open `startupScripts` and change value of `loadIndividualStartupObjects` variable at the top, depending on your server's settings and preference. Read the comment for more details.
+11) Save `base.lua` and close it.
+
+12) (OPTIONAL) Open `startupScripts` and change value of `loadIndividualStartupObjects` variable at the top, depending on your server's settings and preference. Read the comment for more details.
 
 ## FEATURES
 
@@ -48,7 +50,7 @@ If you use a synchronyzed journal, one player progressing in the main Bloodmoon 
 
 • Strongholds built through Great House questlines will persist.
 
-• A fix for auto-goodbye when talking to NPCs in Mournhold after relogging once the `MournholdAttack` quest was started been added.
+• A fix for auto-goodbye when talking to NPCs in Mournhold after relogging once the `MournholdAttack` quest was started has been added.
 
 • NPCs and objects in 60 cells affected by `Startup` script in TES3 are disabled on server initialization (when a first player connects to a server with no cell data) or enabled/disabled individually for each player when entering each affected cell if the journal is not synchronyzed between players.
 
@@ -56,7 +58,7 @@ If you use a synchronyzed journal, one player progressing in the main Bloodmoon 
 
 • Vampire state and clan depending on which clan you joined (tracked by an entry added to your spellbook).
 
-• All bound items are removed upon loggin in, since that should not be happening normally.
+• All bound items are removed upon loggin in, since they are stuck in your inventory after relogging.
 
 ## startupScripts.xlsx
 The excel spreadsheet file contains my findings of how the entities, variables and other things are modified by journal entries and which indexes do so.
