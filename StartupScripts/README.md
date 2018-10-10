@@ -1,5 +1,5 @@
 ﻿## Startup Scripts
-### VERSION 1.1
+### VERSION 1.1.2
 
 **Note:** If you downloaded TES3MP **before** June 2018, you will need to manually install the StateSpam fix script. [StateSpam fix can be found here.](https://github.com/Skvysh/TES3MP-Scripts/tree/master/StateSpam)
 If you downloaded TES3MP after that date, you can ignore this message.
@@ -66,6 +66,12 @@ The excel spreadsheet file contains my findings of how the entities, variables a
 
 ## CHANGELOG:
 ### Script version:
+#### 1.1.2:
+(Hopefully) prevent some crashes regarding cell change.
+
+#### 1.1.1:
+Minor fixes.
+
 #### 1.1:
 Rewrite of how data is handled.
 

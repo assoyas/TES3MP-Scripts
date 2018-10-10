@@ -1,6 +1,6 @@
-------------------
--- Version: 1.1 --
-------------------
+--------------------
+-- Version: 1.1.2 --
+--------------------
 
 local Methods = {}
 local loadIndividualStartupObjects = true -- very experimental; allowing this to happen may lead to unexpected amount of duplicate NPCs and other objects or a surprising lack of them
@@ -171,70 +171,72 @@ We then find if its one of the cells that are affected by the script. In such ca
 Then, we go through entire journal to find the quest that re-enables those objects, similar to onLogin function
 If the conditions for quest name and index are met, we re-enable the objects for that player only]]
 Methods.OnCellChange = function(pid)
-    local cell = Players[pid].data.location.cell
-    local cellArray = Players[pid].data.customVariables.initializedCells
-    local initializedCell = false
-    if cell ~= "0, -7" then
-        if loadIndividualStartupObjects == true then
-            if cellArray ~= nil then
-                for index, value in pairs(cellArray) do
-                    if cell == value then
-                        initializedCell = true
-                        break
-                    end
-                end
-            end
-            if initializedCell == false then
-                local startupCellChangeDisable = startupData.onCellChange.disable
-                if startupCellChangeDisable[cell] ~= nil then
-                    local j = 1
-                    local commandArray = {}
-                    startupCellChangeDisable = startupData.onCellChange.disable[cell]
-                    local commandName = "outcome" .. j
-                    while startupCellChangeDisable[commandName] ~= nil do
-                        commandArray[j] = startupCellChangeDisable[commandName]
-                        j = j + 1
-                        commandName = "outcome" .. j
-                    end
-                    for j2 = 1, j-1 do
-                        myMod.RunConsoleCommandOnPlayer(pid, commandArray[j2])
-                    end
-                    local startupCellChangeEnable = startupData.onCellChange.enable[cell]
-                    if startupCellChangeEnable ~= nil then
-                        for index, value in ipairs (startupCellChangeEnable) do
-                            local indexArray = {}
-                            commandArray = {}
-                            local startupCellChangeEnable = startupCellChangeEnable[index]
-                            local startupQuest = startupCellChangeEnable.quest
-                            local startupIndex = startupCellChangeEnable.index
-                            local journal = Players[pid].data.journal
-                            local i = 1
-                            j = 1
-                            for index2, value2 in pairs(journal) do
-                                local journalEntry = journal[index2]
-                                local quest = journalEntry.quest
-                                local questIndex = journalEntry.index
-                                if startupQuest == quest then
-                                    indexArray[i] = index2
-                                    i = i + 1
-                                end
-                            end
-                            for i2 = 1, i-1 do
-                                if journal[indexArray[i2]].index == startupIndex then
-                                    local commandName = "outcome" .. j
-                                    while startupCellChangeEnable[commandName] ~= nil do
-                                        commandArray[j] = startupCellChangeEnable[commandName]
-                                        j = j + 1
-                                        commandName = "outcome" .. j
-                                    end
-                                end
-                            end
-                            for j2 = 1, j-1 do
-                                myMod.RunConsoleCommandOnPlayer(pid, commandArray[j2])
-                            end
+    if Players[pid]:IsLoggedIn() then
+        local cell = tes3mp.GetCell(pid)
+        local cellArray = Players[pid].data.customVariables.initializedCells
+        local initializedCell = false
+        if cell ~= "0, -7" then
+            if loadIndividualStartupObjects == true then
+                if cellArray ~= nil then
+                    for index, value in pairs(cellArray) do
+                        if cell == value then
+                            initializedCell = true
+                            break
                         end
                     end
-                    table.insert(cellArray, cell)
+                end
+                if initializedCell == false then
+                    local startupCellChangeDisable = startupData.onCellChange.disable
+                    if startupCellChangeDisable[cell] ~= nil then
+                        local j = 1
+                        local commandArray = {}
+                        startupCellChangeDisable = startupData.onCellChange.disable[cell]
+                        local commandName = "outcome" .. j
+                        while startupCellChangeDisable[commandName] ~= nil do
+                            commandArray[j] = startupCellChangeDisable[commandName]
+                            j = j + 1
+                            commandName = "outcome" .. j
+                        end
+                        for j2 = 1, j-1 do
+                            myMod.RunConsoleCommandOnPlayer(pid, commandArray[j2])
+                        end
+                        local startupCellChangeEnable = startupData.onCellChange.enable[cell]
+                        if startupCellChangeEnable ~= nil then
+                            for index, value in ipairs (startupCellChangeEnable) do
+                                local indexArray = {}
+                                commandArray = {}
+                                local startupCellChangeEnable = startupCellChangeEnable[index]
+                                local startupQuest = startupCellChangeEnable.quest
+                                local startupIndex = startupCellChangeEnable.index
+                                local journal = Players[pid].data.journal
+                                local i = 1
+                                j = 1
+                                for index2, value2 in pairs(journal) do
+                                    local journalEntry = journal[index2]
+                                    local quest = journalEntry.quest
+                                    local questIndex = journalEntry.index
+                                    if startupQuest == quest then
+                                        indexArray[i] = index2
+                                        i = i + 1
+                                    end
+                                end
+                                for i2 = 1, i-1 do
+                                    if journal[indexArray[i2]].index == startupIndex then
+                                        local commandName = "outcome" .. j
+                                        while startupCellChangeEnable[commandName] ~= nil do
+                                            commandArray[j] = startupCellChangeEnable[commandName]
+                                            j = j + 1
+                                            commandName = "outcome" .. j
+                                        end
+                                    end
+                                end
+                                for j2 = 1, j-1 do
+                                    myMod.RunConsoleCommandOnPlayer(pid, commandArray[j2])
+                                end
+                            end
+                        end
+                        table.insert(cellArray, cell)
+                    end
                 end
             end
         end
