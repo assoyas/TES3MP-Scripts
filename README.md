@@ -12,6 +12,9 @@ Similar to what DisableAssassins script does, it removes any creatures spawned b
 ## Boots of Actually Blinding Speed (BOABS) (v1.1)
 A harmless script that ensures the boots actually blind player, no matter what magicka resist they have (although it is still possible to bypass this if you have access to console).
 
+## CharClassHelper (v1.0)
+A small library to help handle both pre-defined and custom classes, most importantly - get the percentage of skill's progress.
+
 ## Cliff Racer Sounds (v1.1)
 A not-so-harmless script that plays a random cliff racer sound at random intervals while a player is in the wilderness.
 

@@ -1,0 +1,128 @@
+{
+    "acrobat":{
+        "majorAttributes":"Agility, Endurance",
+        "majorSkills":"Athletics, Unarmed, Acrobatics, Marksman, Sneak",
+        "minorSkills":"Spear, Alteration, Handtohand, Lightarmor, Speechcraft",
+        "specialization":2
+    },
+    "agent":{
+        "majorAttributes":"Agility, Personality",
+        "majorSkills":"Acrobatics, Lightarmor, Shortblade, Sneak, Speechcraft",
+        "minorSkills":"Block, Conjuration, Illusion, Unarmored, Mercantile",
+        "specialization":2
+    },
+    "archer":{
+        "majorAttributes":"Agility, Strength",
+        "majorSkills":"Athletics, Block, Longblade, Lightarmor, Marksman",
+        "minorSkills":"Mediumarmor, Spear, Restoration, Unarmored, Sneak",
+        "specialization":0
+    },
+    "assassin":{
+        "majorAttributes":"Intelligence, Speed",
+        "majorSkills":"Acrobatics, Lightarmor, Marksman, Shortblade, Sneak",
+        "minorSkills":"Athletics, Block, Longblade, Alchemy, Security",
+        "specialization":2
+    },
+    "barbarian":{
+        "majorAttributes":"Speed, Strength",
+        "majorSkills":"Athletics, Axe, Block, Bluntweapon, Mediumarmor",
+        "minorSkills":"Armorer, Acrobatics, Lightarmor, Marksman, Unarmored",
+        "specialization":0
+    },
+    "bard":{
+        "majorAttributes":"Intelligence, Personality",
+        "majorSkills":"Block, Longblade, Alchemy, Acrobatics, Speechcraft",
+        "minorSkills":"Mediumarmor, Enchant, Illusion, Mercantile, Security",
+        "specialization":2
+    },
+    "battlemage":{
+        "majorAttributes":"Intelligence, Strength",
+        "majorSkills":"Alteration, Destruction, Conjuration, Axe, Heavyarmor",
+        "minorSkills":"Mysticism, Longblade, Marksman, Enchant, Alchemy",
+        "specialization":1
+    },
+    "crusader":{
+        "majorAttributes":"Agility, Strength",
+        "majorSkills":"Bluntweapon, Destruction, Longblade, Block, Heavyarmor",
+        "minorSkills":"Restoration, Armorer, Handtohand, Mediumarmor, Alchemy",
+        "specialization":0
+    },
+    "healer":{
+        "majorAttributes":"Willpower, Personality",
+        "majorSkills":"Restoration, Mysticism, Alteration, Handtohand, Speechcraft",
+        "minorSkills":"Illusion, Alchemy, Unarmored, Lightarmor, Bluntweapon",
+        "specialization":1
+    },
+    "knight":{
+        "majorAttributes":"Strength, Personality",
+        "majorSkills":"Longblade, Axe, Speechcraft, Heavyarmor, Block",
+        "minorSkills":"Restoration, Mercantile, Mediumarmor, Enchant, Armorer",
+        "specialization":0
+    },
+    "mage":{
+        "majorAttributes":"Intelligence, Willpower",
+        "majorSkills":"Mysticism, Destruction, Alteration, Illusion, Restoration",
+        "minorSkills":"Enchant, Alchemy, Unarmored, Shortblade, Conjuration",
+        "specialization":1
+    },
+    "monk":{
+        "majorAttributes":"Agility, Willpower",
+        "majorSkills":"Handtohand, Unarmored, Athletics, Acrobatics, Sneak",
+        "minorSkills":"Block, Marksman, Lightarmor, Restoration, Bluntweapon",
+        "specialization":2
+    },
+    "nightblade":{
+        "majorAttributes":"Willpower, Speed",
+        "majorSkills":"Mysticism, Illusion, Alteration, Sneak, Shortblade",
+        "minorSkills":"Lightarmor, Unarmored, Destruction, Marksman, Security",
+        "specialization":1
+    },
+    "pilgrim":{
+        "majorAttributes":"Personality, Endurance",
+        "majorSkills":"Speechcraft, Mercantile, Marksman, Restoration, Mediumarmor",
+        "minorSkills":"Illusion, Handtohand, Shortblade, Block, Alchemy",
+        "specialization":2
+    },
+    "rogue":{
+        "majorAttributes":"Speed, Personality",
+        "majorSkills":"Shortblade, Mercantile, Axe, Lightarmor, Handtohand",
+        "minorSkills":"Block, Mediumarmor, Speechcraft, Athletics, Longblade",
+        "specialization":0
+    },
+    "scout":{
+        "majorAttributes":"Speed, Endurance",
+        "majorSkills":"Sneak, Longblade, Mediumarmor, Athletics, Block",
+        "minorSkills":"Marksman, Alchemy, Alteration, Lightarmor, Unarmored",
+        "specialization":0
+    },
+    "sorcerer":{
+        "majorAttributes":"Intelligence, Endurance",
+        "majorSkills":"Enchant, Conjuration, Mysticism, Destruction, Alteration",
+        "minorSkills":"Illusion, Mediumarmor, Heavyarmor, Marksman, Shortblade",
+        "specialization":1
+    },
+    "spellsword":{
+        "majorAttributes":"Willpower, Endurance",
+        "majorSkills":"Block, Restoration, Longblade, Destruction, Alteration",
+        "minorSkills":"Bluntweapon, Enchant, Alchemy, Mediumarmor, Axe",
+        "specialization":1
+    },
+    "thief":{
+        "majorAttributes":"Speed, Agility",
+        "majorSkills":"Security, Sneak, Acrobatics, Lightarmor, Shortblade",
+        "minorSkills":"Marksman, Speechcraft, Handtohand, Mercantile, Athletics",
+        "specialization":2
+    },
+    "warrior":{
+        "majorAttributes":"Strength, Endurance",
+        "majorSkills":"Longblade, Mediumarmor, Heavyarmor, Athletics, Block",
+        "minorSkills":"Armorer, Spear, Marksman, Axe, Bluntweapon",
+        "specialization":0
+    },
+    "witchhunter":{
+        "majorAttributes":"Intelligence, Agility",
+        "majorSkills":"Conjuration, Enchant, Alchemy, Lightarmor, Marksman",
+        "minorSkills":"Unarmored, Block, Bluntweapon, Sneak, Mysticism",
+        "specialization":1
+    }
+}
