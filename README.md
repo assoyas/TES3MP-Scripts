@@ -24,6 +24,9 @@ A script that enhances the bounty system in TES3MP by adding messages to the cha
 ## CustomQuests (v0.9.3)
 A somewhat experimental version. The script allows you to create custom quests that require players to either hunt specific creatures, travel to a specific cell or acquire specific items. The quests are easy to implement through few lines in a text file - see README.txt and customQuestsMain.txt for explanations of values and examples. The script is written poorly, with no comments, poor optimization and possible game-breaking bugs. See README.txt for known issues. USE THIS AT YOUR OWN RISK.
 
+## DisableTraining (v1.0)
+A server-side mostly-functional solution to trainer usage in Morrowind multiplayer. The script attempts to detect and isolate trainer usage and undo it if players train beyond the specified limit. The script is not 100% reliable - check the `readme` in the folder for more detailed information.
+
 ## PlayTime (v1.0.1)
 Script that tracks the play time of players playing on the server and saves it (in seconds) to players' data files. Adds two chat commands to either display individual play time or list the play times of all logged in players.
 
