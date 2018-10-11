@@ -1,4 +1,4 @@
-﻿﻿## CharClassHelper
+## CharClassHelper
 ### VERSION 1.0
 
 A small library to help read character's class. Supports both native classes and custom ones. Functions include reading player's major/minor skills and calculating the progress of a skill in percentage.
@@ -13,7 +13,7 @@ I had a need for such library for one of my scripts, so I put together something
 
 3) Add `charClassHelper = require("charClassHelper")` at the top, along with all other included scripts.
 
-4) Save `server.lua` file
+4) Save `server.lua` file.
 
 5) Copy `charClassData.json` to `.../tes3mp/mp-stuff/data/` folder.
 
