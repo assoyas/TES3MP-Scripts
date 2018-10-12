@@ -1,5 +1,5 @@
 # Custom server-side scripts for [TES3MP](https://tes3mp.com/)
-All scripts should be working fine with TES3MP version `0.6.2 hotfix` (and mostly likely all the way up to 0.7.0).
+**Note:** The scripts here were written for TES3MP version `0.6.2 hotfix`. They may or may not function partially or at completly with version `0.7.0 alpha` or any other version and the installing instructions may be only partially applicable.
 
 The scripts found here either add some new features to the gameplay or provide temporary fixes to some issues encountered in the current version of TES3MP. They are easy to install and setup and occasionally provide settings to tune to better suit your needs.
 The scripts are in no way official and should not be treated as such - crashes may occur and the logs may lack enough description of the problem. In such case, I will try to assist You to the best of my capabilities, though I highly recommend making backups.
