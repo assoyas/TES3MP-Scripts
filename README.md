@@ -1,5 +1,5 @@
 # Custom server-side scripts for [TES3MP](https://tes3mp.com/)
-**Note:** The scripts here were written for TES3MP version `0.6.2 hotfix`. They may or may not function partially or at completly with version `0.7.0 alpha` or any other version and the installing instructions may be only partially applicable.
+**Note:** The scripts here were written for TES3MP version `0.6.2 hotfix`, unless specified otherwise. They may or may not function partially or at completly with version `0.7.0 alpha` or any other version and the installing instructions may be only partially applicable.
 
 The scripts found here either add some new features to the gameplay or provide temporary fixes to some issues encountered in the current version of TES3MP. They are easy to install and setup and occasionally provide settings to tune to better suit your needs.
 The scripts are in no way official and should not be treated as such - crashes may occur and the logs may lack enough description of the problem. In such case, I will try to assist You to the best of my capabilities, though I highly recommend making backups.
@@ -36,8 +36,8 @@ Easy-to-setup script that adds a chat command to roll a random number between <s
 ## RecursiveCliffRacers (v1.0.1)
 A TES3MP-implementation of the Recursive Cliff Racers mod, which spawns more cliff racers when one dies.
   
-## StartupScripts (v1.1)
-Previously known as "RavenRock", script provides a means to load several variables affecting the states of objects, such as Raven Rock colony in Solstheim, Great House strongholds and disabling various entities that should be disabled at the start of the game. The script may be expanded in the future to include even more fixes for various quests (especially the ones in Tribunal and Bloodmoon expansion) by reading journal entries and changing appropariate TES3 variables through console.
+## StartupScripts (v1.0 for 0.7.0, v1.1.2 for 0.6.2)
+Initially named as "RavenRock", script provides a means to load several variables affecting the states of objects, such as Raven Rock colony in Solstheim, Great House strongholds and disabling various entities that should be disabled at the start of the game. The script may be expanded in the future to include even more fixes for various quests (especially the ones in Tribunal and Bloodmoon expansion) by reading journal entries and changing appropariate TES3 variables through console.
 
 ## StateSpam (v1.0.1)
 [Thanks to Malseph](https://github.com/Malseph/Mal-s-Public-Server-Scripts-for-Tes3MP/blob/master/Console%20state%20spam%20prevention.lua), StateSpam is mostly meant to help tackle the issues with Raven Rock, especially when two players with different states of the colony are have the cell loaded. However, this script is included with TES3MP releases from June 2018 and onwards, so it is not necessary to use if you have a newer version of the package.

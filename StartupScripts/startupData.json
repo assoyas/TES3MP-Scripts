@@ -230,6 +230,88 @@
             "outcome2":"set shrineboethiah.dacurrentday to 2",
             "outcome3":"Startscript, shrineboethiah",
             "outcome4":"set shrineboethiah.dacurrentday to 2"
+        },
+        46:{
+            "quest":"tr_champion",
+            "index":20,
+            "outcome1":"set KarrodFightStart to 1",
+            "outcome2":"Starscript, karrodMovement"
+        },
+        47:{
+            "quest":"tr_champion",
+            "index":50,
+            "outcome1":"set karrodBribe to 1"
+        },
+        48:{
+            "quest":"tr_blade",
+            "index":60,
+            "outcome1":"Startscript, bladefixScript"
+        },
+        49:{
+            "quest":"bm_beasts",
+            "index":10,
+            "outcome1":"set Act_BM_stone_beast_01.doOnce to 1"
+        },
+        50:{
+            "quest":"bm_earth",
+            "index":10,
+            "outcome1":"set Act_BM_stone_earth_01.doOnce to 1"
+        },
+        51:{
+            "quest":"bm_sun",
+            "index":10,
+            "outcome1":"set Act_BM_stone_sun_01.doOnce to 1"
+        },
+        52:{
+            "quest":"bm_trees",
+            "index":10,
+            "outcome1":"set Act_BM_stone_tree_01.doOnce to 1"
+        },
+        53:{
+            "quest":"bm_water",
+            "index":10,
+            "outcome1":"set Act_BM_stone_water_01.doOnce to 1"
+        },
+        54:{
+            "quest":"bm_wind",
+            "index":10,
+            "outcome1":"set Act_BM_stone_wind_01.doOnce to 1"
+        },
+        55:{
+            "quest":"bm_stones",
+            "index":60,
+            "outcome1":"set stones to ( stones ) + 1",
+            "outcome2":"act_bm_water_parts->enable"
+        },
+        56:{
+            "quest":"bm_stones",
+            "index":62,
+            "outcome1":"set stones to ( stones ) + 1",
+            "outcome2":"act_bm_earth_parts->enable"
+        },
+        57:{
+            "quest":"bm_stones",
+            "index":64,
+            "outcome1":"set stones to ( stones ) + 1",
+            "outcome2":"act_bm_tree_parts->enable"
+        },
+        58:{
+            "quest":"bm_stones",
+            "index":66,
+            "outcome1":"set stones to ( stones ) + 1",
+            "outcome2":"act_bm_beast_parts->enable"
+        },
+        59:{
+            "quest":"bm_stones",
+            "index":68,
+            "outcome1":"set stones to ( stones ) + 1",
+            "outcome2":"act_bm_sun_parts->enable"
+        },
+        60:{
+            "quest":"bm_stones",
+            "index":70,
+            "outcome1":"set stones to ( stones ) + 1",
+            "outcome2":"act_bm_wind_parts->enable"
         }
     },
     "onCellChange":{
