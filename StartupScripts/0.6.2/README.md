@@ -1,4 +1,4 @@
-﻿﻿## Startup Scripts for 0.6.2
+## Startup Scripts for 0.6.2
 ### VERSION 1.1.2
 
 **Note:** If you downloaded TES3MP **before** June 2018, you will need to manually install the StateSpam fix script. [StateSpam fix can be found here.](https://github.com/Skvysh/TES3MP-Scripts/tree/master/StateSpam)
