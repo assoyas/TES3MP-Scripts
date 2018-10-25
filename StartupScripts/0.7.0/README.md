@@ -1,5 +1,5 @@
 ﻿## Startup Scripts for 0.7.0
-### VERSION 1.0
+### VERSION 1.1
 
 ## INSTALLING INSTRUCTIONS
 
@@ -28,5 +28,8 @@
 12) (OPTIONAL) Open `startupScripts` and change value of `loadIndividualStartupObjects` variable at the top, depending on your server's settings and preference. Read the comment for more details
 
 ## CHANGELOG:
+### 1.1:
+Fix issue with `Startup` script being run at incorrect time.
+
 ### 1.0:
 Initial release of the script for TES3MP 0.7.0.

@@ -1,5 +1,5 @@
 ------------------
--- Version: 1.0 --
+-- Version: 1.1 --
 ------------------
 
 local Methods = {}
@@ -13,16 +13,24 @@ local loadIndividualStartupObjects = true
 local startupCells = {"0, 22", "0, -9", "1, 24", "-11, 15", "-11, 9", "-12, 11", "15, 5", "17, -6", "2, 23", "-2, -3", "2, 4", "-2, 5", "-2, 6", "-2, -8", "3, 23", "3, 24", "-3, -8", "3, -9", "-4, 12", "4, -9", "-5, -5", "-5, 9", "-6, -5", "6, -7", "8, 15", "-8, 16", "-8, 2", "-8, 3", "9, 15", "-9, 2", "-9, 4", "9, -7", "Ald-ruhn, Gindrala Hleran's House", "Ald-ruhn, Sarethi Manor", "Ald-ruhn, The Rat In The Pot", "Balmora, Balyn Omarel's House", "Balmora, Eight Plates", "Bthuand", "Cavern of the Incarnate", "Ghostgate, Tower of Dusk", "Gnaar Mok, Nadene Rotheran's Shack", "Ilunibi, Soul's Rattle", "Indarys Manor, Berendas' House", "Kora-Dur", "Mamaea, Sanctum of Black Hope", "Nchurdamz, Interior", "Rothan Ancestral Tomb", "Sadrith Mora, Dirty Muriel's Cornerclub", "Sadrith Mora, Tel Naga Great Hall", "Sadrith Mora, Telvanni Council House", "Telasero, Lower Level", "Vivec, Arena Storage", "Vivec, Foreign Quarter Underworks", "Vivec, Hall of Wisdom", "Vivec, Hlaalu Prison Cells", "Vivec, Jeanne; Trader", "Vivec, Milo's Quarters", "Vivec, Ralen Tilvur; Smith", "Vivec, St. Olms Underworks", "Vivec, Telvanni Enchanter"}
 -- cells affected by the BMStartUpScript in the Bloodmoon expansion
 local bmStartupCells = {"-20, 25", "-21, 23", "-22, 21", "-22, 23", "-24, 26", "-25, 19", "-26, 26", "Solstheim, Chamber of Song", "Solstheim, Mortrag Glacier; Huntsman's Hall"}
+-- initialization definitions, don't change these
 local bmWorldInitialized = false
+local baseWorldInitialized = false
 -- load the json file with all the data
 startupData = {}
 Methods.Initialize = function()
 	startupData = jsonInterface.load("startupData.json")
 end
 
---Call all of the functions when player logs in
+--Call all of the functions when player logs in, run the startup scripts if conditions are met
 Methods.OnLogin = function(pid)
     Players[pid].data.customVariables.initializedCells = {} -- used for onCellChange function
+    if baseWorldInitialized == false then
+        if loadIndividualStartupObjects == false then
+            logicHandler.RunConsoleCommandOnPlayer(pid, "Startscript, Startup")
+        end
+    end
+    -- BMStartUpScript actually checks for quest progress before disabling the objects, so we don't need to worry about reference journal, etc.
     if bmWorldInitialized == false then
         logicHandler.RunConsoleCommandOnPlayer(pid, "Startscript, BMStartUpScript")
     end
@@ -258,11 +266,8 @@ Methods.OnCellChange = function(pid)
 end
 
 --[[Check if the server's fresh - no cells files are created for the cells afftected by the startup script or the bmstartup
-script. Then, we run the startup script if there were no cells for the base game and never have to worry about it again.
-The bmstartupscript is handled once the player actually logs in and journal data is loaded, as to disable the appropariate
-objects based on quest progress (some visual mismatches may happen).]]
+script. Then, we will run both scripts if needed when player actually logs in.]]
 Methods.RunStartup = function(pid)
-    local baseWorldInitialized = false
     for index,cellDescription in ipairs(startupCells) do
         LoadedCells[cellDescription] = Cell(cellDescription)
         LoadedCells[cellDescription].description = cellDescription
@@ -280,11 +285,6 @@ Methods.RunStartup = function(pid)
             bmWorldInitialized = true
         end
         logicHandler.UnloadCell(cellDescription)
-    end
-    if baseWorldInitialized == false then
-        if loadIndividualStartupObjects == false then
-            logicHandler.RunConsoleCommandOnPlayer(pid, "Startscript, Startup")
-        end
     end
 end
 

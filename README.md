@@ -36,7 +36,7 @@ Easy-to-setup script that adds a chat command to roll a random number between <s
 ## RecursiveCliffRacers (v1.0.1)
 A TES3MP-implementation of the Recursive Cliff Racers mod, which spawns more cliff racers when one dies.
   
-## StartupScripts (v1.0 for 0.7.0, v1.1.2 for 0.6.2)
+## StartupScripts (v1.1 for 0.7.0, v1.1.2 for 0.6.2)
 Initially named as "RavenRock", script provides a means to load several variables affecting the states of objects, such as Raven Rock colony in Solstheim, Great House strongholds and disabling various entities that should be disabled at the start of the game. The script may be expanded in the future to include even more fixes for various quests (especially the ones in Tribunal and Bloodmoon expansion) by reading journal entries and changing appropariate TES3 variables through console.
 
 ## StateSpam (v1.0.1)
