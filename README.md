@@ -1,3 +1,5 @@
+![The truth](https://imgur.com/QbY0sE6.png)
+
 # Custom server-side scripts for [TES3MP](https://tes3mp.com/)
 **Note:** The scripts here were written for TES3MP version `0.6.2 hotfix`, unless specified otherwise. They may or may not function partially or at completly with version `0.7.0 alpha` or any other version and the installing instructions may be only partially applicable.
 
